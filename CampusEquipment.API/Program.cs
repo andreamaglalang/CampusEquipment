@@ -1,3 +1,4 @@
+using CampusEquipment.API.Middleware;
 using CampusEquipment.Core.Repositories;
 using CampusEquipment.Core.Services;
 using CampusEquipment.Infrastructure.Data;
@@ -21,6 +22,8 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,9 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

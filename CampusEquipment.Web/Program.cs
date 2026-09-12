@@ -3,6 +3,7 @@ using CampusEquipment.Core.Services;
 using CampusEquipment.Infrastructure.Data;
 using CampusEquipment.Infrastructure.Repositories;
 using CampusEquipment.Infrastructure.Services;
+using CampusEquipment.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -27,9 +30,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
