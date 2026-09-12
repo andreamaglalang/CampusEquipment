@@ -117,7 +117,10 @@
                                   class="d-inline"
                                   onsubmit="return confirm('Retire @e.AssetCode?');">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-secondary">Retire</button>
+                                <button type="submit" class="btn btn-sm btn-secondary"
+                                        title="Mark as Retired — retains the record for history">
+                                    Retire
+                                </button>
                             </form>
                         }
 
@@ -125,7 +128,10 @@
                               class="d-inline"
                               onsubmit="return confirm('Permanently delete @e.AssetCode? This cannot be undone.');">
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    title="Permanently remove from the database">
+                                Delete
+                            </button>
                         </form>
                     </td>
                 </tr>
