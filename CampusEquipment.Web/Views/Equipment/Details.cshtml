@@ -1,0 +1,58 @@
+﻿@model CampusEquipment.Core.DTOs.EquipmentDto
+
+@{
+    ViewData["Title"] = "Equipment Details";
+}
+
+<h2 class="mb-3">Equipment Details</h2>
+
+<div class="card mb-3" style="max-width: 720px;">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Asset Code</dt>
+            <dd class="col-sm-9"><strong>@Model.AssetCode</strong></dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">@Model.Category</dd>
+
+            <dt class="col-sm-3">Brand</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Brand) ? "-" : Model.Brand)</dd>
+
+            <dt class="col-sm-3">Model</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Model) ? "-" : Model.Model)</dd>
+
+            <dt class="col-sm-3">Purchase Date</dt>
+            <dd class="col-sm-9">
+                @(Model.PurchaseDate.HasValue
+                    ? Model.PurchaseDate.Value.ToString("yyyy-MM-dd")
+                    : "-")
+            </dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                @{
+                    var badgeClass = Model.Status switch
+                    {
+                        "Available" => "bg-success",
+                        "Assigned" => "bg-primary",
+                        "UnderMaintenance" => "bg-warning text-dark",
+                        "Retired" => "bg-secondary",
+                        _ => "bg-secondary"
+                    };
+                }
+                <span class="badge @badgeClass">@Model.Status</span>
+            </dd>
+
+            <dt class="col-sm-3">Department</dt>
+            <dd class="col-sm-9">@Model.DepartmentName</dd>
+        </dl>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.EquipmentId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
